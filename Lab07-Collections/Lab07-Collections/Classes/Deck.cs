@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lab07_Collections
+namespace Lab07_Collections.Classes
 {
     class Deck<T> : IEnumerable<T>
     {
@@ -25,9 +25,9 @@ namespace Lab07_Collections
 
         }
 
-        public void Count(T item)
+        public int Count()
         {
-
+            return currentIndex;
         }
 
         public IEnumerator<T> GetEnumerator()
