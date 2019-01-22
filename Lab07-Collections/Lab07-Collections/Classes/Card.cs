@@ -7,12 +7,12 @@ namespace Lab07_Collections.Classes
 {
     public class Card
     {
-        public string Face { get; set; }
+        public Faces Face { get; set; }
         public Suits Suit { get; set; }
 
         public Card() { }
 
-        public Card(string face, Suits suit)
+        public Card(Faces face, Suits suit)
         {
             Face = face;
             Suit = suit;
@@ -27,5 +27,22 @@ namespace Lab07_Collections.Classes
         Spades,
         Clubs
     };
+
+    public enum Faces
+    {
+        Ace = 1,
+        Two,
+        Three, 
+        Four,
+        Five,
+        Six,
+        Seven,
+        Eight,
+        Nine,
+        Ten,
+        Jack,
+        Queen,
+        King
+    }
     
 }

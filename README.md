@@ -9,3 +9,8 @@
   * Count (the total number of cards in the deck)
 * In your `Program.cs` have a method named `Deal` that gets called from `Main` that evenly distributes the deck of cards amongst 2 players decks. the Dealer Deck should keeps any remaining cards (if any). Output to the console the cards each player has and what the Dealer Deck has kept.
 * When running your application, it should activate a console that outputs an example for each of the custom methods within your deck. It should show what cards were added to the deck, information about what card was removed, and then proof it is gone, as well as a final count of the number of cards without any direct code manipulation from the grader.
+
+### Screenshots
+![Deal Even](assets/deal-even.png)
+
+![Deal Odd](assets/deal-odd.png)
