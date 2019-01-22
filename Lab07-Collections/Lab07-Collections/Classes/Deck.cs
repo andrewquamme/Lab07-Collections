@@ -5,36 +5,63 @@ using System.Text;
 
 namespace Lab07_Collections.Classes
 {
-    class Deck<T> : IEnumerable<T>
+    public class Deck<T> : IEnumerable
     {
-        T[] internalItems = new T[5];
-        int currentIndex = 0;
+        public T[] cards = new T[5];
+        int count = 0;
 
+        /// <summary>
+        /// Add item to deck collection
+        /// </summary>
+        /// <param name="item">item to add</param>
         public void Add(T item)
         {
-            if (currentIndex > internalItems.Length - 1)
+            if (count == cards.Length)
             {
-                Array.Resize(ref internalItems, internalItems.Length * 2);
+                Array.Resize(ref cards, cards.Length * 2);
             }
-            internalItems[currentIndex] = item;
-            currentIndex++;
+            cards[count] = item;
+            count++;
         }
 
+        /// <summary>
+        /// Remove item from deck collection
+        /// </summary>
+        /// <param name="item">item to remove</param>
         public void Remove(T item)
         {
+            T[] temp = new T[count - 1];
+            int tempcount = 0;
 
+            foreach (T card in cards)
+            {
+                if (card != null)
+                {
+                    if (!card.Equals(item))
+                    {
+                        temp[tempcount] = card;
+                        tempcount++;
+                    }
+                }
+            }
+            cards = temp;
+            count--;
         }
 
+        /// <summary>
+        /// Get current item count in deck collection
+        /// </summary>
+        /// <returns>count of items</returns>
         public int Count()
         {
-            return currentIndex;
+            return count;
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < currentIndex; i++)
+            for (int i = 0; i < count; i++)
             {
-                yield return internalItems[i];
+                yield return cards[i];
             }
         }
 

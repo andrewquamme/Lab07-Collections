@@ -7,69 +7,88 @@ namespace Lab07_Collections
     {
     static void Main(string[] args)
         {
-            Deck<Card> deck = new Deck<Card>
+            Deck<Card> dealer = new Deck<Card>
             {
-                new Card() {Face="Ace", Suit=Suits.Spades },
-                new Card() {Face="Queen", Suit=Suits.Hearts},
-                new Card() {Face="Jack", Suit=Suits.Clubs}
+                new Card() {Face=Faces.Ace, Suit=Suits.Spades },
+                new Card() {Face=Faces.Queen, Suit=Suits.Hearts},
+                new Card() {Face=Faces.Jack, Suit=Suits.Clubs}
             };
 
-            deck.Add(new Card("2", Suits.Diamonds));
-            deck.Add(new Card("3", Suits.Spades));
-            deck.Add(new Card("4", Suits.Hearts));
-            deck.Add(new Card("5", Suits.Clubs));
-            deck.Add(new Card("5", Suits.Diamonds));
-            deck.Add(new Card("4", Suits.Spades));
-            deck.Add(new Card("3", Suits.Hearts));
-            deck.Add(new Card("2", Suits.Clubs));
+            dealer.Add(new Card(Faces.Two, Suits.Diamonds));
+            dealer.Add(new Card(Faces.Three, Suits.Spades));
+            dealer.Add(new Card(Faces.Four, Suits.Hearts));
+            dealer.Add(new Card(Faces.Five, Suits.Clubs));
+            dealer.Add(new Card(Faces.Five, Suits.Diamonds));
 
-            Console.Write("Cards in Deck:");
-            foreach (Card card in deck)
-            {
-                Console.Write($"[{card.Face} of {card.Suit}]");
-            }
-            Console.WriteLine();
-            Deal(deck);
+            PrintCards("Cards in Deck: ", dealer);
+            Deal(dealer);
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// Print cards in deck to console
+        /// </summary>
+        /// <param name="deckInfo">Info for deck being printed</param>
+        /// <param name="deck">card deck</param>
+        static void PrintCards(string deckInfo, Deck<Card> deck)
+        {
+            Console.WriteLine(deckInfo);
+            foreach (Card card in deck)
+            {
+                Console.WriteLine($"[{card.Face} of {card.Suit}]");
+            }
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Deal cards from dealer deck to player decks
+        /// Deals evenly to two players
+        /// </summary>
+        /// <param name="deck">Deck to be dealt</param>
         public static void Deal(Deck<Card> deck)
         {
-            Console.WriteLine("(Dealing Cards...)");
+            Console.WriteLine("(Dealing Cards...)\n");
             Deck<Card> player1 = new Deck<Card>();
             Deck<Card> player2 = new Deck<Card>();
 
-            int counter = 0;
+            int count = deck.Count();
 
-            foreach (Card item in deck)
+            if(count %2 == 0)
             {
-                if  (counter % 2 == 0)
+                //deck is even
+                for (int i = count-1; i >= 0; i--)
                 {
-                    player1.Add(item);
+                    if (i % 2 == 0)
+                    {
+                        player1.Add(deck.cards[i]);
+                    }
+                    else
+                    {
+                        player2.Add(deck.cards[i]);
+                    }
+                    deck.Remove(deck.cards[i]);
                 }
-                else
+            }
+            else
+            {
+                //deck is odd
+                for (int i = count - 1; i > 0; i--)
                 {
-                    player2.Add(item);
+                    if (i % 2 == 0)
+                    {
+                        player1.Add(deck.cards[i]);
+                    }
+                    else
+                    {
+                        player2.Add(deck.cards[i]);
+                    }
+                    deck.Remove(deck.cards[i]);
                 }
-                counter++;
             }
 
-            Console.Write("Player 1 Hand: ");
-            foreach (Card card in player1)
-            {
-                Console.Write($"[{card.Face} of {card.Suit}]");
-            }
-            Console.WriteLine();
-            Console.Write("Player 2 Hand: ");
-            foreach (Card card in player2)
-            {
-                Console.Write($"[{card.Face} of {card.Suit}]");
-            }
-
+            PrintCards("Player 1 Hand: ", player1);
+            PrintCards("Player 2 Hand: ", player2);
+            PrintCards("Dealer Hand: ", deck);
         }
     }
 }
-
-/*Take cards out of deck and put into player decks
- * Print decks
- */ 
