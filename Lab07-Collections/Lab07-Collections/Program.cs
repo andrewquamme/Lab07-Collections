@@ -21,6 +21,9 @@ namespace Lab07_Collections
             dealer.Add(new Card(Faces.Five, Suits.Diamonds));
 
             PrintCards("Cards in Deck: ", dealer);
+            Card test = new Card(Faces.Two, Suits.Diamonds);
+            dealer.Remove(test);
+            PrintCards("Cards in Deck: ", dealer);
             Deal(dealer);
             Console.ReadLine();
         }
