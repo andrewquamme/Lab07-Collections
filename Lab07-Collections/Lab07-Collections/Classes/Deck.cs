@@ -28,24 +28,27 @@ namespace Lab07_Collections.Classes
         /// Remove item from deck collection
         /// </summary>
         /// <param name="item">item to remove</param>
-        public void Remove(T item)
+        public bool Remove(T item)
         {
-            T[] temp = new T[count - 1];
-            int tempcount = 0;
-
-            foreach (T card in cards)
+            for (int i = 0; i < count; i++)
             {
-                if (card != null)
+                if (item.Equals(cards[i]))
                 {
-                    if (!card.Equals(item))
+                    for (int j = i; j < count; j++)
                     {
-                        temp[tempcount] = card;
-                        tempcount++;
+                        cards[j] = cards[j + 1];
                     }
+                    count--;
+                    if (count < cards.Length - 1)
+                    {
+                        Array.Resize(ref cards, cards.Length - 1);
+                    }
+                    Console.WriteLine("Card removed from deck");
+                    return true;
                 }
             }
-            cards = temp;
-            count--;
+            Console.WriteLine("Card not found in deck");
+            return false;
         }
 
         /// <summary>
